@@ -7,7 +7,7 @@ class Stack
 private:
 	int size;
 	int topIndex;
-	T*arr;
+	T* arr;
 public:
 	Stack()
 	{
@@ -26,7 +26,9 @@ public:
 		int* temp = new T[size + 1];
 
 		for (int i = 0; i < size; i++)
-		{	temp[i] = arr[i];	}
+		{
+			temp[i] = arr[i];
+		}
 		temp[size] = num;
 		size = size + 1;
 		delete[] arr;
@@ -34,17 +36,19 @@ public:
 	}
 	void Pop()
 	{
-			int* temp = new T[size - 1];
-			int a = 0;
-			for (int i = 0; i < size; i++)
+		int* temp = new T[size - 1];
+		int a = 0;
+		for (int i = 0; i < size; i++)
+		{
+			if (i != size - 1)
 			{
-				if (i != size - 1)
-				{	temp[a] = arr[i];  a++;	}
+				temp[a] = arr[i];  a++;
 			}
-			this->size = size - 1;
-			this->topIndex = size;
-			delete[] arr;
-			arr = temp;
+		}
+		this->size = size - 1;
+		this->topIndex = size;
+		delete[] arr;
+		arr = temp;
 	}
 
 	T Peek() const
@@ -69,10 +73,12 @@ public:
 		{
 			if (i + 1 == size)
 			{
-				cout << arr[i] <<endl;
+				cout << arr[i] << endl;
 			}
 			else
-			{	cout << arr[i] << ", ";		}
+			{
+				cout << arr[i] << ", ";
+			}
 		}
 	}
 	~Stack()
