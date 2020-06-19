@@ -9,12 +9,8 @@ private:
 	int topIndex;
 	T* arr;
 public:
-	Stack()
-	{
-		size = 0;
-		topIndex = 0;
-		arr = new T[this->size];
-	}
+	Stack():size(0), topIndex(0), arr(new T[this->size])
+	{	}
 	Stack(T size)
 	{
 		this->size = size;
@@ -96,7 +92,7 @@ int main()
 	st.Push(12);
 	st.Push(13);
 	st.Push(12);
-	st.Push(11);
+	st.Push(14);
 	st.Push(7);
 	st.Push(888);
 	st.Print();
