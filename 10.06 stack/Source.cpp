@@ -19,8 +19,7 @@ public:
 	}
 	void Push(T num)
 	{
-		int* temp = new T[size + 1];
-
+		T* temp = new T[size + 1];
 		for (int i = 0; i < size; i++)
 		{
 			temp[i] = arr[i];
@@ -32,7 +31,7 @@ public:
 	}
 	void Pop()
 	{
-		int* temp = new T[size - 1];
+		T* temp = new T[size - 1];
 		int a = 0;
 		for (int i = 0; i < size; i++)
 		{
