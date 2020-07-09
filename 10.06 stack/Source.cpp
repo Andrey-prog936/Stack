@@ -1,6 +1,14 @@
 #include <iostream>
 #include <string>
+#include <exception>
+#include <stdexcept>
 using namespace std;
+class StackIsEmptyEX : public exception
+{
+public:
+	StackIsEmptyEX(const char* mes) : exception(mes)
+	{	}
+};
 template <class T>
 class Stack
 {
@@ -13,12 +21,20 @@ public:
 	{	}
 	Stack(T size)
 	{
+		if (size < 0)
+		{
+			throw invalid_argument("Size is less than 0");//////////////////
+		}
 		this->size = size;
 		topIndex = this->size - 1;
 		arr = new T[this->size];
 	}
 	void Push(T num)
 	{
+		if (num == 999)
+		{
+			throw exception("Number 999 cannot be added");// :)
+		}
 		T* temp = new T[size + 1];
 		for (int i = 0; i < size; i++)
 		{
@@ -31,24 +47,39 @@ public:
 	}
 	void Pop()
 	{
-		T* temp = new T[size - 1];
-		int a = 0;
-		for (int i = 0; i < size; i++)
+		if (!IsEmpty())
 		{
-			if (i != size - 1)
+			T* temp = new T[size - 1];
+			int a = 0;
+			for (int i = 0; i < size; i++)
 			{
-				temp[a] = arr[i];  a++;
+				if (i != size - 1)
+				{
+					temp[a] = arr[i];  a++;
+				}
 			}
+			this->size = size - 1;
+			this->topIndex = size;
+			delete[] arr;
+			arr = temp;
 		}
-		this->size = size - 1;
-		this->topIndex = size;
-		delete[] arr;
-		arr = temp;
+		else
+		{
+			throw StackIsEmptyEX("Stack Empty!!");////////////////////
+		}
 	}
 
 	T Peek() const
 	{
-		return arr[topIndex - 1];
+		if (!IsEmpty())
+		{
+			return arr[topIndex - 1];
+		}
+		else
+		{
+			throw StackIsEmptyEX("Stack empty");///////////////////
+		}
+		return 0;
 	}
 	T GetCount() const
 	{
@@ -58,7 +89,7 @@ public:
 	{
 		return topIndex == 0;
 	}
-	bool IsFull()const
+	bool IsFull() const
 	{
 		return topIndex == this->size;
 	}
@@ -85,7 +116,26 @@ public:
 
 int main()
 {
-	bool a = 1;
+	Stack<int> st;
+	try
+	{
+		st.Push(12);
+		st.Push(999);
+	}
+	catch (exception& ex)
+	{
+		cout << ex.what() << endl;
+		cout << "Error" << endl;
+	}
+	catch (int ex)
+	{
+		cout << ex << endl;
+		cout << "Error" << endl;
+	}
+
+	/*
+	
+	bool a = -1;
 	int s = 0;
 	Stack<int> st;
 	st.Push(12);
@@ -106,6 +156,8 @@ int main()
 	cout << a << endl;
 	a = st.IsFull();
 	cout << a << endl;
+	
+	*/
 
 	system("pause");
 	return 0;
